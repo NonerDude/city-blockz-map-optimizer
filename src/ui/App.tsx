@@ -13,8 +13,8 @@ export default function App() {
         <p>
           Map model, serialization, and file schema are in <code>src/map</code> (see{' '}
           <code>src/map/schema</code> for save/load/import/export types). Optimization logic will
-          live in <code>src/algorithm</code>. High-level overview:{' '}
-          <code>docs/ARCHITECTURE.md</code>.
+          live in <code>src/algorithm</code>.           High-level overview: <code>docs/ARCHITECTURE.md</code>; domain bullets:{' '}
+          <code>docs/DOMAIN.md</code>.
         </p>
       </section>
     </div>

@@ -25,15 +25,16 @@ npm run lint   # ESLint
 
 ## Project layout
 
-Source is grouped into **UI**, **map** (including file **schema** for save/load/import/export), and **algorithm**:
+Source is grouped into **UI**, **map** (boards + **`schema`** for files), **`rules`** (placement/progression predicates), and **algorithm**:
 
 | Path | Role |
 |------|------|
 | `src/ui/` | React app shell and future editor |
-| `src/map/` | `GameMapState`, serialization, and `schema/` for versioned files |
-| `src/algorithm/` | Population / layout optimization logic |
+| `src/map/` | `BoardSpec`, `GameMapState`, serializers (`MapFileV1` / `SaveFileV1`) |
+| `src/rules/` | Placement legality, roofs, unlock scaffolding |
+| `src/algorithm/` | Search / scoring under rule constraints |
 
-Overview diagram and boundaries: **[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)**. Each folder includes a **`README.md`** describing that layer.
+Narrative domain notes (**holes, tiers, roofs, saves with many boards**): **[`docs/DOMAIN.md`](docs/DOMAIN.md)** — diagram + boundaries **[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)**. Each featured folder ships a **`README.md`** explaining its responsibilities.
 
 ## Repository
 

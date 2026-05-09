@@ -1,17 +1,22 @@
 # Algorithm (`src/algorithm`)
 
-Population / scoring optimization: given a **`GameMapState`**, propose better building arrangements or compute scores according to rules you derive from City Blockz.
+Population scoring and layout search: **`GameMapState` in, improved placements or diagnostics out.**
 
-## Design guidelines
+## Constraints
 
-- **Pure functions** preferred: same input → same output, easier to test and rerun.
-- **Depend only on [`src/map`](../map/README.md)** for types (`GameMapState`, building enums, etc.).
-- Avoid importing from `src/ui`; keep React out of this tree.
+Exploration **must obey [`src/rules`](../rules/README.md)** (`evaluatePlacement` grows into tier-specific predicates + roof toggles). Even when brute-forcing tiny `5 × 5` boards, funnel candidate generation through rule checks so demolished buildings, adjacency ladders, and “place anywhere roof” exemptions stay authoritative.
+
+[`GameMapState`](../map/types.ts) now embeds **`progression`**, keeping unlock/roof/meta facts adjacent to the grid the algorithm mutates hypothetically—never silently invent roof states.
+
+## Imports
+
+Prefer **depending on**:
+
+- `@map-domain` equivalents via relative imports (`../map/...`)
+- `../rules/...` for legality predicates and tier typing
+
+Avoid React/DOM imports.
 
 ## Entry points
 
-[`optimize.ts`](./optimize.ts) will grow into the public API (`optimizePopulation`, helpers, scorer). Stub exports exist so `map` and `ui` can depend on stable function names early.
-
-## Performance note
-
-Later you may swap in heuristics, simulated annealing, constraint solvers, or precomputed lookups. Keeping the boundary at `optimizePopulation(map)` preserves flexibility.
+[`optimize.ts`](./optimize.ts) will orchestrate heuristic / exhaustive passes per board inside a broader save bundle (caller decides which [`GameMapState`](../map/types.ts) to optimize first).

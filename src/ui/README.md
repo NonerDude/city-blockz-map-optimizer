@@ -6,7 +6,9 @@ React application shell: pages, layout, forms, and any map editor affordances (g
 
 - Render the app and handle user interaction.
 - Trigger **import** (file input / drag-drop) and **export** (download links); delegate parsing and validation to [`src/map`](../map/README.md).
-- Display optimization results from [`src/algorithm`](../algorithm/README.md) without embedding game rules in components.
+- Display optimization results from [`src/algorithm`](../algorithm/README.md) while delegating tier/roof/adjacency prompts to [`src/rules`](../rules/README.md).
+
+Domain notes (**multi-map saves, hole masks, unlocking ladders**) live in [`docs/DOMAIN.md`](../../docs/DOMAIN.md).
 
 ## Non-responsibilities
 

@@ -1,29 +1,26 @@
-# Map file schema (`src/map/schema`)
+# Serialized shapes (`src/map/schema`)
 
-Defines the **serialized** representation of a map: the object shape written to disk or exchanged when users import/export.
+Two complementary contracts:
 
-## Why separate from `types.ts`
+## `SaveFileV1` + `SaveMapEntryV1`
 
-- `GameMapState` is optimized for editing and algorithms (arrays, enums, redundant indexes).
-- `MapFileV*` is optimized for stability (explicit `schemaVersion`, optional migration, human-readable metadata).
+Full **game persistence** surfaced as an ordered **`maps`** array (`saveGameSchema.ts`). Each entry carries bounding box dimensions, **`holeKeys`**, serialized placements, optional progression blobs, labels/IDs for UI grouping.
 
-Different concerns → different types, with serialization mapping between them.
+Prefer this path whenever you import/export the **whole save slot** backing multiple simultaneous boards.
+
+## `MapFileV1`
+
+Single-board **transfer / clip** payloads (`mapFileSchema.ts`) when you deliberately isolate one geometry + placement bundle without implying the broader multi-save structure.
 
 ## Versioning
 
-- Export a **`schemaVersion`** number (or string) with every file.
-- When you break compatibility, bump the version (e.g. `MapFileV2`) and optionally add migrations in [`../serialization.ts`](../serialization.ts).
-- Older clients can refuse unknown versions or run upgraders explicitly.
+- `SAVE_GAME_SCHEMA_VERSION` and `MAP_FILE_SCHEMA_VERSION` may diverge; bump whichever file shape broke.
+- Migrations belong next to serializers in [`../serialization.ts`](../serialization.ts) and [`../saveSerialization.ts`](../saveSerialization.ts).
 
-## This folder
+## Ops cheat sheet
 
-[`mapFileSchema.ts`](./mapFileSchema.ts) holds the canonical types/constants for **v1**. Add `mapFileSchema.v2.ts` (or parallel files) when you introduce breaking changes rather than overloading one giant interface.
-
-## Operations mapping
-
-| Operation | Typical flow |
+| Operation | Typical target |
 |-----------|----------------|
-| Save | `GameMapState` → `encodeMapFile` → `MapFileV1` → JSON string |
-| Load | JSON string → `MapFileV1` → validate → `decodeMapFile` → `GameMapState` |
-| Import | Same as load; UI supplies `File` / string |
-| Export | Same as save; UI triggers download |
+| Save whole game | `encodeSaveFile` → `SaveFileV1`
+| Import whole game JSON | Parse → validate `schemaVersion` → `decodeSaveFile`
+| Export one board snippet | Slice active entry or build `MapFileV1`
