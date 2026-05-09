@@ -2,7 +2,7 @@
 
 City Bloxx Map Optimizer is split into **`ui`**, **`map`**, **`rules`**, and **`algorithm`** under `src/`. Each owns a slice of functionality and communicates through **plain TypeScript types** and **small functions** so the UI never parses raw JSON blobs, algorithms never bypass legality checks, and files stay versioned cleanly.
 
-See **[`DOMAIN.md`](./DOMAIN.md)** for board sizing, progression ideas, multi-map saves, and open questions around roofs/demolish.
+See **[`DOMAIN.md`](./DOMAIN.md)** for board sizing, progression ideas, multi-map saves, and open questions around roofs/demolish. External wiki/review links live in **[`REFERENCES.md`](./REFERENCES.md)**.
 
 ```mermaid
 flowchart LR

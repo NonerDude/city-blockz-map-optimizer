@@ -4,11 +4,11 @@ Browser app to help maximize **population** (scoring) in the mobile game **City 
 
 Implementation of map editing, persistence, and the optimizer logic is planned; this repo currently contains only the baseline **Vite + React + TypeScript** setup.
 
-## Prior discussion
+## References & prior discussion
 
-The constrained placement puzzle (“blue anywhere, higher tiers need orthogonal neighbors”) has been discussed elsewhere for years—for example **[r/math: City Bloxx optimisation](https://www.reddit.com/r/math/comments/4l2nzj/city_bloxx_optimisation/)** (2016). That thread overlaps the same optimisation question this app targets; implementations and proof ideas there are independent of this codebase.
+Curated links (wiki, reviews, math threads, solvers) and **takeaways for this repo**: **[`docs/REFERENCES.md`](docs/REFERENCES.md)**.
 
-Related angles people often cite: constraint programming / search on small grids ([TowerBlocksOptimizer](https://github.com/kevindalmeijer/TowerBlocksOptimizer)), and puzzles framed as **[City Bloxx on Math StackExchange](https://math.stackexchange.com/questions/3863517/an-interesting-puzzle-in-an-otherwise-boring-game)**. Use them as optional reading alongside your phone build rules (**roofs**, **demolish**, **holes** vary by game/edition).
+Short version: the constrained placement puzzle (“blue anywhere, higher tiers need orthogonal neighbors”) appears across **[Tower Bloxx — Gamia Archive](https://gamia-archive.fandom.com/wiki/Tower_Bloxx)** (overview), **[JayIsGames — Tower Bloxx review](https://jayisgames.com/review/tower-bloxx.php)** (Build City vs Quick Game, roofs, long player strategy thread), **[r/math: City Bloxx optimisation](https://www.reddit.com/r/math/comments/4l2nzj/city_bloxx_optimisation/)**, **[Math.SE puzzle](https://math.stackexchange.com/questions/3863517/an-interesting-puzzle-in-an-otherwise-boring-game)**, and **[TowerBlocksOptimizer](https://github.com/kevindalmeijer/TowerBlocksOptimizer)**. Rules differ by **edition**—your mobile **City Bloxx** build remains the authority when they conflict with Flash-era write-ups.
 
 ## Stack
 
