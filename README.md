@@ -38,4 +38,12 @@ Narrative domain notes (**holes, tiers, roofs, saves with many boards**): **[`do
 
 ## Repository
 
-Remote: https://github.com/NonerDude/city-bloxx-map-optimizer.git
+Target Git hosting URL: https://github.com/NonerDude/city-bloxx-map-optimizer.git  
+
+Cloning or keeping the workspace folder aligned with GitHub slug: **`city-bloxx-map-optimizer`** (rename locally if yours still says `city-blockz-optimizer`).
+
+Until the GitHub repository is renamed from `city-blockz-map-optimizer` to `city-bloxx-map-optimizer` (repository **Settings → General**), pushes may keep using that old slug; afterward run:
+
+```bash
+git remote set-url origin https://github.com/NonerDude/city-bloxx-map-optimizer.git
+```
