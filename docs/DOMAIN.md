@@ -15,8 +15,10 @@ Rough unlock / adjacency ladder (exact numbers TBD):
 2. After the first placement(s), **red** unlocks but may only sit **adjacent to blue**.
 3. **Green** expects adjacency (or eligibility) combining **blue and red** conditions.
 4. **Yellow** requires presence of **all three** predecessors in the placement neighborhood (as you define neighbor semantics).
-5. **Roofs** unlock for earlier colors and loosen placement (e.g. place **some blues anywhere** regardless of neighbors).
-6. **Demolish** exists; interplay with roofs, quotas, or re-locking unlocks is **unknown** → keep rules **data-driven and composable** so we can refactor without rewriting the grid.
+5. **Roofs** fall into separate buckets:
+   - **Trophy / milestone roofs** (cosmetic gates). Example nailed down: the **first residential (blue) trophy roof** unlocks once total population reaches **≥ 1400**. It **does not** alter placement predicates for blue residences because blues already obey the unrestricted placement policy outlined earlier.
+   - **Mechanical roofs** (hypothetical) may later loosen adjacency prerequisites for tiers that genuinely need neighboring anchors—those must be modelled independently with explicit predicates when confirmed.
+6. **Demolish** exists; interplay between demolish replay, mechanical roofs, quotas, or re-locking unlocks remains **partially unspecified** → keep rules **data-driven and composable** so we can refactor without rewriting the grid.
 
 The important engineering goal: **`GameMapState` holds facts** (“what sits where”), while **`rules` answers questions** (“can I place tier X here given progression + demolished history”) and **`algorithm`** searches under those constraints.
 

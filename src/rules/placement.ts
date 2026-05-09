@@ -9,7 +9,8 @@ export interface PlacementDecision {
 
 /**
  * Central hook for tier-specific adjacency/roof/unlock predicates.
- * Compose smaller checks here as you learn real City Blockz rules.
+ * Population-only trophy roofs do **not** automatically modify placement—for example unlocking the residential blue trophy
+ * ({@link RESIDENTIAL_BLUE_TROPHY_POPULATION_GATE}) leaves blue predicates unchanged (`populationMilestones.ts`).
  */
 export function evaluatePlacement(
   _map: GameMapState,
