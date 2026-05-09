@@ -1,31 +1,50 @@
-# Domain model (early notes)
+# Domain model
 
-Captured from design discussion. This is **not** the full rule spec—especially **roofs**, **demolish**, and exact unlock counts—which will land in [`src/rules`](../src/rules/README.md) as predicates and configurable rule packs once the game behaves clearly.
+Captured from design discussion plus **implemented stubs** in code (`tierConstants.ts`, `placement.ts`). Remaining gaps (exact in-game scoring curve, every roof threshold, demolish edge cases) stay **data-driven** so we can extend without rewiring the grid.
 
-External write-ups (wiki, reviews, forums) are indexed in **[`REFERENCES.md`](./REFERENCES.md)**; treat them as **hints**, not the canonical spec for your installed game build.
+External write-ups are indexed in **[`REFERENCES.md`](./REFERENCES.md)**.
 
 ## Board shape
 
-- Typical maps are **`5 × 5` with irregular holes**: the playable footprint is “full grid minus obstacles,” but the **scale might change** slightly; treat width/height and hole set as **data**, not constants in code (`BoardSpec`).
-- Algorithms and serialization should tolerate **different bounding boxes** and **different hole masks** across maps in one save.
+- Typical maps are **`5 × 5` with irregular holes**: playable cells = bounding rectangle minus voids (`BoardSpec`). Scale may change—geometry stays **data**, not hardcoded constants.
+- Algorithms and serialization tolerate **different holes** per entry inside **`SaveFileV1.maps[]`**.
 
-## Progressive building rules (conceptual)
+## Tier populations & unlock gates (stub)
 
-Rough unlock / adjacency ladder (exact numbers TBD):
+Per-building **estimated population** used for city totals and optimisation objective until real scoring is wired:
 
-1. Only **blue** at start.
-2. After the first placement(s), **red** unlocks but may only sit **adjacent to blue**.
-3. **Green** expects adjacency (or eligibility) combining **blue and red** conditions.
-4. **Yellow** requires presence of **all three** predecessors in the placement neighborhood (as you define neighbor semantics).
-5. **Roofs** fall into separate buckets:
-   - **Trophy / milestone roofs** (cosmetic gates). Example nailed down: the **first residential (blue) trophy roof** unlocks once total population reaches **≥ 1400**. It **does not** alter placement predicates for blue residences because blues already obey the unrestricted placement policy outlined earlier.
-   - **Mechanical roofs** (hypothetical) may later loosen adjacency prerequisites for tiers that genuinely need neighboring anchors—those must be modelled independently with explicit predicates when confirmed.
-6. **Demolish** exists; interplay between demolish replay, mechanical roofs, quotas, or re-locking unlocks remains **partially unspecified** → keep rules **data-driven and composable** so we can refactor without rewriting the grid.
+| Tier | Stub population | Cumulative city population to **unlock** placing this tier |
+|------|-----------------|---------------------------------------------------------------|
+| Blue (residential) | 75 | 0 |
+| Red (commercial) | 250 | ≥ 250 |
+| Green (office) | 800 | ≥ 800 |
+| Yellow (luxury) | 2200 | ≥ 2200 |
 
-Community discussions of **Tower Bloxx / City Bloxx** often emphasize that **tier adjacency rules apply at placement time**, while later **demolition or replacement** can rearrange the city toward layouts that would have been illegal to reach “from scratch” in one pass—our **`rules`** layer should model **legal transitions** (place / demolish / replace), not only static snapshots.
+`estimateCityPopulation` sums stub values over placed buildings. Unlock checks run **before** placing the new building (matches sequential play).
 
-The important engineering goal: **`GameMapState` holds facts** (“what sits where”), while **`rules` answers questions** (“can I place tier X here given progression + demolished history”) and **`algorithm`** searches under those constraints.
+## Placement (orthogonal adjacency)
+
+When **not** using a freedom roof:
+
+- **Blue** — any empty playable cell (no neighbour requirement).
+- **Red** — must have an orthogonal neighbour containing **blue**.
+- **Green** — orthogonal neighbours must include at least one **blue** and one **red**.
+- **Yellow** — orthogonal neighbours must include **blue**, **red**, and **green**.
+
+Neighbours are **4-way** (no diagonals).
+
+## Freedom roofs (non-blue)
+
+For **red / green / yellow**, a **freedom roof** (once unlocked and chosen when placing via `usingFreedomRoof: true`) allows **ignoring adjacency**—build on any empty playable cell. Tokens live in `progression.roofUnlocks` (`freedom-roof-red`, etc.; see `FREEDOM_ROOF_UNLOCK_ID`).
+
+**Blue** roofs (including the **1400 pop trophy**) do **not** change placement rules—blue is already unconstrained by neighbours.
+
+## Progressive building rules (legacy narrative)
+
+The ladder above replaces the earlier informal bullet list; refinements (exact unlock phrasing in UI, demolish interactions) still belong in [`src/rules`](../src/rules/README.md).
+
+Community discussions often note that **rules apply at placement time**, while **demolition/replacement** can produce layouts hard to reach in a single forward-only pass—model **legal transitions** (`place` / `demolish`) in the rules layer, not only static snapshots.
 
 ## One save, many boards
 
-One **game save / export** aggregates **multiple map instances**, each potentially with a **different hole pattern** or label. Persist as an ordered list (`SaveFileV1.maps[]`). The UI chooses which board is focused; the optimizer can run **per-board** first, whole-save later if cross-map constraints appear.
+One **game save / export** holds **multiple** maps (`SaveFileV1.maps[]`). The UI picks focus; the optimiser can run per board first.

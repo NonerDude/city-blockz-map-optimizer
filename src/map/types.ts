@@ -1,3 +1,4 @@
+import type { PlacedBuilding } from './cell'
 import type { ProgressionSnapshot } from '../rules/types'
 
 /**
@@ -13,17 +14,12 @@ export interface BoardSpec {
 
 /**
  * One editable / optimizable City Bloxx-style board plus progression facts the rules engine needs.
- * Keep **placement legality out of this record** — query [`src/rules`](../rules/README.md).
+ * Placement legality → [`evaluatePlacement`](../rules/placement.ts).
  */
 export interface GameMapState {
   readonly board: BoardSpec
-  /** User-driven revision / undo bookkeeping; harmless for algorithms that ignore it. */
   revision: number
-  /**
-   * Sparse building placements keyed by coord. Replace `unknown` with a concrete cell union
-   * (empty / building tier / roof metadata) once modelling stabilizes.
-   */
-  readonly cells: Readonly<Record<string, unknown>>
-  /** Locks, roofs, demolish-derived flags — see rules package. */
+  /** Sparse placements keyed by `row,col`. Absent key = empty cell. */
+  readonly cells: Readonly<Record<string, PlacedBuilding | undefined>>
   readonly progression: ProgressionSnapshot
 }

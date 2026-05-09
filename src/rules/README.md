@@ -29,6 +29,9 @@ These details are **still being discovered**. This package should grow as **smal
 |------|------|
 | [`types.ts`](./types.ts) | `BuildingTier`, `ProgressionSnapshot`, helpers |
 | [`populationMilestones.ts`](./populationMilestones.ts) | Population thresholds for trophies (starting with residential blue @ 1400) |
-| [`placement.ts`](./placement.ts) | `evaluatePlacement` — central hook expanding into modules later |
+| [`placement.ts`](./placement.ts) | `evaluatePlacement` — orthogonal adjacency, cumulative-population unlocks, freedom roofs |
+| [`tierConstants.ts`](./tierConstants.ts) | Stub populations **75 / 250 / 800 / 2200**, unlock gates **0 / 250 / 800 / 2200**, `freedom-roof-*` ids |
+| [`population.ts`](./population.ts) | `estimateCityPopulation` |
+| [`unlocks.ts`](./unlocks.ts) | `isTierUnlockedForCityPopulation` |
 
-Consult [`docs/DOMAIN.md`](../../docs/DOMAIN.md) for narrative context plus open questions around roofs/demolish.
+Consult [`docs/DOMAIN.md`](../../docs/DOMAIN.md) for numbers plus remaining unknowns (exact scoring, demolish nuance).

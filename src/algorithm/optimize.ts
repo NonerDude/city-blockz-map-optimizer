@@ -1,12 +1,18 @@
 import type { GameMapState } from '../map/types'
+import { estimateCityPopulation } from '../rules/population'
 
 export interface OptimizationResult {
   suggestion?: GameMapState
   messages: readonly string[]
 }
 
-/** Given a map, return a better layout or scoring guidance. */
-export function optimizePopulation(_map: GameMapState): OptimizationResult {
-  void _map
-  return { messages: ['optimizePopulation is not implemented yet.'] }
+/** Objective snapshot + placeholder for future search. */
+export function optimizePopulation(map: GameMapState): OptimizationResult {
+  const pop = estimateCityPopulation(map)
+  return {
+    messages: [
+      `Estimated city population (tier stub totals): ${pop}.`,
+      'Exhaustive layout search not implemented yet.',
+    ],
+  }
 }

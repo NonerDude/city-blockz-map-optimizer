@@ -2,21 +2,23 @@
 
 Population scoring and layout search: **`GameMapState` in, improved placements or diagnostics out.**
 
+Current objective stub is **`estimateCityPopulation`** (sum of tier totals **75 / 250 / 800 / 2200** per [`tierConstants`](../rules/tierConstants.ts)); replace with real scoring when you have exact formulas.
+
 ## Constraints
 
-Exploration **must obey [`src/rules`](../rules/README.md)** (`evaluatePlacement` grows into tier-specific predicates + roof toggles). Even when brute-forcing tiny `5 × 5` boards, funnel candidate generation through rule checks so demolished buildings, adjacency ladders, and “place anywhere roof” exemptions stay authoritative.
+Exploration **must obey [`src/rules`](../rules/README.md)** (`evaluatePlacement`: orthogonal adjacency, cumulative-population unlocks, freedom-roof bypass). Funnel candidate moves through those checks before evaluating population gain.
 
-[`GameMapState`](../map/types.ts) now embeds **`progression`**, keeping unlock/roof/meta facts adjacent to the grid the algorithm mutates hypothetically—never silently invent roof states.
+[`GameMapState`](../map/types.ts) embeds **`progression`** (`roofUnlocks`, …) so freedom-roof tokens stay authoritative.
 
 ## Imports
 
 Prefer **depending on**:
 
-- `@map-domain` equivalents via relative imports (`../map/...`)
-- `../rules/...` for legality predicates and tier typing
+- `../map/...` for boards and cells
+- `../rules/...` for legality, population estimate, tier constants
 
 Avoid React/DOM imports.
 
 ## Entry points
 
-[`optimize.ts`](./optimize.ts) will orchestrate heuristic / exhaustive passes per board inside a broader save bundle (caller decides which [`GameMapState`](../map/types.ts) to optimize first).
+[`optimize.ts`](./optimize.ts) reports estimated population today; add exhaustive / heuristic search once scoring matches the mobile build.
