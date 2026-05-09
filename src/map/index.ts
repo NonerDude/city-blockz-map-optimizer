@@ -1,0 +1,5 @@
+export type { GameMapState } from './types'
+export type { MapFileV1 } from './schema'
+export { MAP_FILE_SCHEMA_VERSION } from './schema'
+export { decodeMapFile, encodeMapFile } from './serialization'
+export type { DecodeMapFileResult } from './serialization'

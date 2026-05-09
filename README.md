@@ -23,6 +23,18 @@ npm run preview # serve the production build locally
 npm run lint   # ESLint
 ```
 
+## Project layout
+
+Source is grouped into **UI**, **map** (including file **schema** for save/load/import/export), and **algorithm**:
+
+| Path | Role |
+|------|------|
+| `src/ui/` | React app shell and future editor |
+| `src/map/` | `GameMapState`, serialization, and `schema/` for versioned files |
+| `src/algorithm/` | Population / layout optimization logic |
+
+Overview diagram and boundaries: **[`docs/ARCHITECTURE.md`](docs/ARCHITECTURE.md)**. Each folder includes a **`README.md`** describing that layer.
+
 ## Repository
 
 Remote: https://github.com/NonerDude/city-blockz-map-optimizer.git

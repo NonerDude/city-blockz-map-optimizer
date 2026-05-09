@@ -1,0 +1,40 @@
+.app-shell {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding: 2.5rem 1.25rem 3rem;
+}
+
+.app-shell__header h1 {
+  font-family: var(--heading);
+  color: var(--text-h);
+  font-size: clamp(1.75rem, 4vw, 2.25rem);
+  line-height: 1.15;
+  margin: 0 0 0.5rem;
+}
+
+.app-shell__lede {
+  margin: 0;
+  color: var(--text);
+}
+
+.app-shell__doc-hint {
+  margin-top: 2rem;
+  padding: 1rem 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--social-bg);
+  box-shadow: var(--shadow);
+}
+
+.app-shell__doc-hint p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.app-shell code {
+  font-family: var(--mono);
+  font-size: 0.9em;
+  background: var(--code-bg);
+  padding: 0.12em 0.38em;
+  border-radius: 4px;
+}
