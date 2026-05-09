@@ -4,7 +4,7 @@ export default function App() {
   return (
     <div className="app-shell">
       <header className="app-shell__header">
-        <h1>City Blockz Map Optimizer</h1>
+        <h1>City Bloxx Map Optimizer</h1>
         <p className="app-shell__lede">
           UI layer scaffold — editor and controls will live in <code>src/ui</code>.
         </p>

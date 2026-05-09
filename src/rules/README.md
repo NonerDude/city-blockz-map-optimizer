@@ -4,7 +4,7 @@ Answers **placement and progression questions** independently of React and indep
 
 ## Why this exists
 
-City Blockz-style flows mix several mechanisms:
+City Bloxx-style flows mix several mechanisms:
 
 | Mechanism | Example (informal) | Implementation direction |
 |-----------|---------------------|---------------------------|

@@ -12,7 +12,7 @@ export interface BoardSpec {
 }
 
 /**
- * One editable / optimizable City Blockz-style board plus progression facts the rules engine needs.
+ * One editable / optimizable City Bloxx-style board plus progression facts the rules engine needs.
  * Keep **placement legality out of this record** — query [`src/rules`](../rules/README.md).
  */
 export interface GameMapState {

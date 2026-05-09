@@ -1,6 +1,6 @@
-# City Blockz Map Optimizer
+# City Bloxx Map Optimizer
 
-Browser app to help maximize **population** (scoring) in the mobile game **City Blockz**. You will be able to create, upload, save, import, and export maps, then run a straightforward optimization routine to align building types for higher population counts.
+Browser app to help maximize **population** (scoring) in the mobile game **City Bloxx**. You will be able to create, upload, save, import, and export maps, then run a straightforward optimization routine to align building types for higher population counts.
 
 Implementation of map editing, persistence, and the optimizer logic is planned; this repo currently contains only the baseline **Vite + React + TypeScript** setup.
 
@@ -38,4 +38,4 @@ Narrative domain notes (**holes, tiers, roofs, saves with many boards**): **[`do
 
 ## Repository
 
-Remote: https://github.com/NonerDude/city-blockz-map-optimizer.git
+Remote: https://github.com/NonerDude/city-bloxx-map-optimizer.git
