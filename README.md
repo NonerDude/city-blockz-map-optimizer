@@ -4,6 +4,12 @@ Browser app to help maximize **population** (scoring) in the mobile game **City 
 
 Implementation of map editing, persistence, and the optimizer logic is planned; this repo currently contains only the baseline **Vite + React + TypeScript** setup.
 
+## Prior discussion
+
+The constrained placement puzzle (“blue anywhere, higher tiers need orthogonal neighbors”) has been discussed elsewhere for years—for example **[r/math: City Bloxx optimisation](https://www.reddit.com/r/math/comments/4l2nzj/city_bloxx_optimisation/)** (2016). That thread overlaps the same optimisation question this app targets; implementations and proof ideas there are independent of this codebase.
+
+Related angles people often cite: constraint programming / search on small grids ([TowerBlocksOptimizer](https://github.com/kevindalmeijer/TowerBlocksOptimizer)), and puzzles framed as **[City Bloxx on Math StackExchange](https://math.stackexchange.com/questions/3863517/an-interesting-puzzle-in-an-otherwise-boring-game)**. Use them as optional reading alongside your phone build rules (**roofs**, **demolish**, **holes** vary by game/edition).
+
 ## Stack
 
 - [Vite](https://vite.dev/) — dev server and build
